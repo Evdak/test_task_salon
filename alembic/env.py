@@ -1,7 +1,7 @@
 import asyncio
 from logging.config import fileConfig
-from db.db import Base, User
-
+from db.db import Base
+from models import *
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 from sqlalchemy.ext.asyncio import AsyncEngine
@@ -54,7 +54,8 @@ def run_migrations_offline():
 
 
 def do_run_migrations(connection):
-    context.configure(connection=connection, target_metadata=target_metadata)
+    context.configure(connection=connection,
+                      target_metadata=target_metadata)  # , render_as_batch=True)
 
     with context.begin_transaction():
         context.run_migrations()
