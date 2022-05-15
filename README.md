@@ -3,21 +3,28 @@
 
 Информационные данные (можно заменить):
 <br>
-`echo DEFAULT_TIME=30 >.env`
+`echo 'DEFAULT_TIME=30`
 <br>
-` echo OPEN_TIME="8:00" >.env`
+`OPEN_TIME="8:00"`
 <br>
-` echo CLOSE_TIME="22:00" >.env`
+`CLOSE_TIME="22:00"`
 <br>
-` echo NAME="Barbershop" >.env`
+`NAME="Barbershop"`
 <br>
-` echo DESTINATION="Казань, ул. Баумана, д.1" >.env`
+`DESTINATION="Казань, ул. Баумана, д.1"`
 <br>
-` echo PHONE_NUMBER="+79999999999" >.en`
+`PHONE_NUMBER="+79999999999"`
 <br>
-` echo BASE_URL="sqlite+aiosqlite:///./test.db" >.env`
+`BASE_URL="sqlite+aiosqlite:///./test.db"' >.env`
 
 
+echo 'DEFAULT_TIME=30 
+OPEN_TIME="8:00"
+CLOSE_TIME="22:00"
+NAME="Barbershop"
+DESTINATION="Казань, ул. Баумана, д.1"
+PHONE_NUMBER="+79999999999"
+BASE_URL="sqlite+aiosqlite:///./test.db" ' >.env
 
 Если не установлен pipenv:
 <br>
@@ -29,7 +36,7 @@
 <br>
 `pipenv install`
 <br>
-`python3 main.py`
+`pipenv run python3 main.py`
 
 Сервер запущен по адресу: http://127.0.0.1:8000
 <br>
