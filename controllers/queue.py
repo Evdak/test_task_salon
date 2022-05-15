@@ -14,7 +14,12 @@ from utils import *
 router = APIRouter()
 
 
-@router.get('/all', response_model=List[QueueBase])
+@router.get('/all', response_model=List[QueueBase], responses={
+    400: {
+        "description": "Not enough permissions",
+        "detail": "Not enough permissions"
+    }
+})
 async def get_all_queue(
         db: Session = Depends(get_async_session),
         user: User = Depends(current_active_user)):
@@ -23,7 +28,12 @@ async def get_all_queue(
     return await QueueRepository.get_all(db)
 
 
-@router.get('/all/today', response_model=List[QueueBase])
+@router.get('/all/today', response_model=List[QueueBase], responses={
+    400: {
+        "description": "Not enough permissions",
+        "detail": "Not enough permissions"
+    }
+})
 async def get_all_queue_for_today(
         db: Session = Depends(get_async_session),
         user: User = Depends(current_active_user)):
@@ -32,7 +42,12 @@ async def get_all_queue_for_today(
     return await QueueRepository.get_all_today(db)
 
 
-@router.get('/{master_id}', response_model=List[QueueInDBBase])
+@router.get('/{master_id}', response_model=List[QueueInDBBase], responses={
+    404: {
+        "description": "Master is not exist",
+        "detail": "Master is not exist"
+    }
+})
 async def get_queue_for_master(
         master_id: UUID_ID,
         db: Session = Depends(get_async_session),
@@ -42,7 +57,12 @@ async def get_queue_for_master(
     return await QueueRepository.get_by_master_id(db=db, master_id=master_id)
 
 
-@router.get('/{master_id}/today', response_model=List[QueueInDBBase])
+@router.get('/{master_id}/today', response_model=List[QueueInDBBase], responses={
+    404: {
+        "description": "Master is not exist",
+        "detail": "Master is not exist"
+    }
+})
 async def get_queue_for_master_for_today(
         master_id: UUID_ID,
         db: Session = Depends(get_async_session),
@@ -52,7 +72,20 @@ async def get_queue_for_master_for_today(
     return await QueueRepository.get_by_master_id_today(db=db, master_id=master_id)
 
 
-@router.post('/book', response_model=QueueCreate)
+@router.post('/book', response_model=QueueCreate, responses={
+    404: {
+        "description": "Master is not exist",
+        "detail": "Master is not exist"
+    },
+    400: {
+        "description": "Not enough permissions",
+        "detail": "Not enough permissions"
+    },
+    400: {
+        "description": "Master is busy",
+        "detail": "Master is busy"
+    }
+})
 async def book(queue: QueueCreate,
                db: Session = Depends(get_async_session),
                user: User = Depends(current_active_user)):
@@ -71,7 +104,16 @@ async def book(queue: QueueCreate,
     return await QueueRepository.create(q=queue, db=db, user=user)
 
 
-@router.put('/mark_as_started', response_model=QueueBase)
+@router.put('/mark_as_started', response_model=QueueBase, responses={
+    404: {
+        "description": "Not found by id",
+        "detail": "Not found by id"
+    },
+    400: {
+        "description": "Not enough permissions",
+        "detail": "Not enough permissions"
+    }
+})
 async def mark_as_started(queue: QueueUpdate,
                           db: Session = Depends(get_async_session),
                           user: User = Depends(current_active_user)):
@@ -86,7 +128,16 @@ async def mark_as_started(queue: QueueUpdate,
     return await QueueRepository.mark_as_started(q=queue, db=db)
 
 
-@router.put('/mark_as_ended', response_model=QueueBase)
+@router.put('/mark_as_ended', response_model=QueueBase, responses={
+    404: {
+        "description": "Not found by id",
+        "detail": "Not found by id"
+    },
+    400: {
+        "description": "Not enough permissions",
+        "detail": "Not enough permissions"
+    }
+})
 async def mark_as_ended(queue: QueueUpdateEnd,
                         db: Session = Depends(get_async_session),
                         user: User = Depends(current_active_user)):
@@ -101,7 +152,16 @@ async def mark_as_ended(queue: QueueUpdateEnd,
     return await QueueRepository.mark_as_ended(q=queue, db=db)
 
 
-@router.delete('/{id}')
+@router.delete('/{id}', responses={
+    404: {
+        "description": "Not found by id",
+        "detail": "Not found by id"
+    },
+    400: {
+        "description": "Not enough permissions",
+        "detail": "Not enough permissions"
+    }
+})
 async def delete_by_id(id: int,
                        db: Session = Depends(get_async_session),
                        user: User = Depends(current_active_user)):

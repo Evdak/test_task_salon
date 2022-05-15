@@ -33,7 +33,16 @@ async def get_all_masters(
 #     return await QueueRepository.get_master(db=db, user=user, master_id=master_id)
 
 
-@router.post('/register_as_master', response_model=MasterBase)
+@router.post('/register_as_master', response_model=MasterBase, responses={
+    400: {
+        "description": "Not enough permissions",
+        "detail": "Not enough permissions"
+    },
+    400: {
+        "description": "Master is already exist",
+        "detail": "Master is already exist"
+    }
+})
 async def register_as_master(db: Session = Depends(get_async_session),
                              user: User = Depends(current_active_user)):
 
@@ -46,7 +55,12 @@ async def register_as_master(db: Session = Depends(get_async_session),
     return await MasterRepository.create(db=db, user=user)
 
 
-@router.get('/is_free/{master_id}')
+@router.get('/is_free/{master_id}', response_model=bool, responses={
+    404: {
+        "description": "Master is not exist",
+        "detail": "Master is not exist"
+    }
+})
 async def is_free(master_id: UUID_ID,
                   db: Session = Depends(get_async_session)):
     if not await MasterRepository.is_exist_master(master_id=master_id, db=db):
@@ -54,7 +68,12 @@ async def is_free(master_id: UUID_ID,
     return await QueueRepository.is_free(master_id=master_id, time=datetime.now(tz=utc), db=db)
 
 
-@router.get('/{master_id}', response_model=MasterBase)
+@router.get('/{master_id}', response_model=MasterBase, responses={
+    404: {
+        "description": "Master is not exist",
+        "detail": "Master is not exist"
+    }
+})
 async def get_master_by_id(master_id: UUID_ID,
                            db: Session = Depends(get_async_session),
                            user: User = Depends(current_active_user)):
@@ -63,7 +82,16 @@ async def get_master_by_id(master_id: UUID_ID,
     return await MasterRepository.get_master(master_id=master_id, db=db)
 
 
-@router.delete('/{id}')
+@router.delete('/{id}', responses={
+    400: {
+        "description": "Not enough permissions",
+        "detail": "Not enough permissions"
+    },
+    404: {
+        "description": "Not found by id",
+        "detail": "Not found by id"
+    }
+})
 async def delete_by_id(id: int,
                        db: Session = Depends(get_async_session),
                        user: User = Depends(current_active_user)):
