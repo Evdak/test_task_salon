@@ -9,6 +9,7 @@ fastapi = {extras = ["all"], version = "*"}
 alembic = "*"
 pytz = "*"
 fastapi-users-db-sqlalchemy = "*"
+aiosqlite = "*"
 
 [dev-packages]
 
