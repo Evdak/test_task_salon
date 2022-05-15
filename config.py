@@ -1,0 +1,6 @@
+DEFAULT_TIME = 30
+OPEN_TIME = "8:00"
+CLOSE_TIME = "22:00"
+NAME = "Barbershop"
+DESTINATION = "Казань, ул. Баумана, д.1"
+PHONE_NUMBER = "+79999999999"
