@@ -1,13 +1,13 @@
 import os
 
 try:
-    DEFAULT_TIME = os.environ['DEFAULT_TIME']
-    OPEN_TIME = os.environ['OPEN_TIME']
-    CLOSE_TIME = os.environ['CLOSE_TIME']
-    NAME = os.environ['NAME']
-    DESTINATION = os.environ['DESTINATION']
-    PHONE_NUMBER = os.environ['PHONE_NUMBER']
-    BASE_URL = os.environ['BASE_URL']
+    DEFAULT_TIME = os.getenv('DEFAULT_TIME')
+    OPEN_TIME = os.getenv('OPEN_TIME')
+    CLOSE_TIME = os.getenv('CLOSE_TIME')
+    NAME = os.getenv('NAME')
+    DESTINATION = os.getenv('DESTINATION')
+    PHONE_NUMBER = os.getenv('PHONE_NUMBER')
+    BASE_URL = os.getenv('BASE_URL')
 except:
     DEFAULT_TIME = 30
     OPEN_TIME = "8:00"
