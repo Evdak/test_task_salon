@@ -1,6 +1,6 @@
 from typing import Optional
 from pydantic import BaseModel, validator
-from datetime import datetime
+from datetime import datetime, tzinfo
 from utils import *
 
 
@@ -27,8 +27,8 @@ class QueueCreate(BaseModel):
     def check_date(cls, v):
         if v < datetime.now(tz=utc):
             raise ValueError("Date or time is wrong")
-        if not (get_open_datetime() <= v <= get_close_datetime()):
-            raise ValueError("Baebershop is not working at this time")
+        if not (get_open_datetime() <= v.time() <= get_close_datetime()):
+            raise ValueError("Barbershop is not working at this time")
         return v
 
     class Config:

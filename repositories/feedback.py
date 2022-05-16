@@ -15,7 +15,7 @@ class FeedbackRepository():
         feedback.user_id = user.id
         db.add(feedback)
         await db.commit()
-        db.refresh(feedback)
+        await db.refresh(feedback)
         return feedback
 
     async def update(f: FeedbackUpdate, db: Session) -> FeedbackBase:

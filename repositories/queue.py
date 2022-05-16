@@ -19,7 +19,7 @@ class QueueRepository():
         queue.started_at = None
         db.add(queue)
         await db.commit()
-        db.refresh(queue)
+        await db.refresh(queue)
         return queue
 
     async def create_from_live_queue(q: LiveQueueBase, db: Session, user_id: UUID_ID) -> QueueCreate:
@@ -32,7 +32,7 @@ class QueueRepository():
         queue.started_at = None
         db.add(queue)
         await db.commit()
-        db.refresh(queue)
+        await db.refresh(queue)
         return queue
 
     async def mark_as_started(db: Session, q: QueueUpdate) -> QueueBase:

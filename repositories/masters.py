@@ -17,7 +17,7 @@ class MasterRepository():
         master.rating = 0
         db.add(master)
         await db.commit()
-        db.refresh(master)
+        await db.refresh(master)
         return master
 
     async def update(db: Session, m: MasterUpdate) -> MasterBase:
@@ -28,7 +28,7 @@ class MasterRepository():
         master.text = m.text
         db.add(master)
         await db.commit()
-        db.refresh(master)
+        await db.refresh(master)
         return master
 
     async def get_all(db: Session) -> List[MasterBase]:

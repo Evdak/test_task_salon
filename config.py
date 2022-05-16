@@ -1,7 +1,7 @@
 import os
 
 try:
-    DEFAULT_TIME = os.getenv('DEFAULT_TIME')
+    DEFAULT_TIME = int(os.getenv('DEFAULT_TIME'))
     OPEN_TIME = os.getenv('OPEN_TIME')
     CLOSE_TIME = os.getenv('CLOSE_TIME')
     NAME = os.getenv('NAME')
