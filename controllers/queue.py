@@ -101,7 +101,12 @@ async def book(queue: QueueCreate,
     if not is_free:
         raise HTTPException(status_code=400, detail="Master is busy")
 
-    return await QueueRepository.create(q=queue, db=db, user=user)
+    result = await QueueRepository.create(q=queue, db=db, user=user)
+    result.starts_at = datetime(year=result.starts_at.year, month=result.starts_at.month,
+                                day=result.starts_at.day, hour=result.starts_at.hour,
+                                minute=result.starts_at.minute, second=result.starts_at.second,
+                                microsecond=result.starts_at.microsecond, tzinfo=utc)
+    return result
 
 
 @router.put('/mark_as_started', response_model=QueueBase, responses={

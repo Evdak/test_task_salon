@@ -139,6 +139,10 @@ async def call_a_client_from_live_queue(master_id: UUID_ID,
     result = await QueueRepository.create_from_live_queue(
         q=result, user_id=result.user_id, db=db)
 
+    result.starts_at = datetime(year=result.starts_at.year, month=result.starts_at.month,
+                                day=result.starts_at.day, hour=result.starts_at.hour,
+                                minute=result.starts_at.minute, second=result.starts_at.second,
+                                microsecond=result.starts_at.microsecond, tzinfo=utc)
     return result
 
 
