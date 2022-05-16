@@ -2,6 +2,7 @@ from datetime import datetime
 import json
 from uuid import UUID
 from fastapi.testclient import TestClient
+from config import *
 
 from main import app
 
@@ -27,11 +28,11 @@ def test_get_info():
     response = client.get("/info")
     assert response.status_code == 200
     assert response.json() == {
-        "name": "Barbershop",
-        "opening_time": "8:00",
-        "close_time": "22:00",
-        "destination": "Казань, ул. Баумана, д.1",
-        "phone_number": "+79999999998"
+        "name": NAME,
+        "opening_time": OPEN_TIME,
+        "close_time": CLOSE_TIME,
+        "destination": DESTINATION,
+        "phone_number": PHONE_NUMBER
     }
 
 
