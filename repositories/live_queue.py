@@ -16,7 +16,7 @@ class LiveQueueRepository():
         queue.user_id = user.id
         db.add(queue)
         await db.commit()
-        db.refresh(queue)
+        await db.refresh(queue)
         return queue
 
     async def update(master_id: UUID_ID, db: Session, q: LiveQueueUpdate) -> LiveQueue:
@@ -29,7 +29,7 @@ class LiveQueueRepository():
         queue = queue.scalars()
         print(f'UPDATED {queue=}')
         await db.commit()
-        db.refresh(queue)
+        await db.refresh(queue)
         return queue
 
     async def get_all(db: Session) -> List[LiveQueueBase]:
